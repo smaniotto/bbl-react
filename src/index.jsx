@@ -1,14 +1,16 @@
 import React from 'react'
+import ReduxPromise from 'redux-promise'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
+
 import peopleApp from './reducers'
 import App from './components/App.jsx'
 
-let store = createStore(peopleApp)
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 render((
-  <Provider store={store}>
+  <Provider store={createStoreWithMiddleware(peopleApp)}>
     <App/>
   </Provider>
 ), document.getElementById('root'))
