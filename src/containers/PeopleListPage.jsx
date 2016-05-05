@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 import {fetchPeople} from '../actions/index'
-import PeopleList from '../components/people-list.jsx'
+import PeopleList from '../components/PeopleList.jsx'
 
 class PeopleListPage extends Component {
   constructor(props) {
