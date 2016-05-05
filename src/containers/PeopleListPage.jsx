@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 
 import {fetchPeople} from '../actions/index'
 import PeopleList from '../components/PeopleList.jsx'
+import SearchBox from '../components/SearchBox.jsx'
 
 class PeopleListPage extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class PeopleListPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPeople('bernardo');
+    this.updatePeopleList();
   }
 
   render() {
@@ -19,16 +20,28 @@ class PeopleListPage extends Component {
       ? this.props.people.data.results
       : [];
 
-    return (<PeopleList people={peopleList}/>);
+    return (
+      <div className="people-list-page">
+        <SearchBox submit={this.props.fetchPeople}/>
+        <PeopleList people={peopleList}/>
+      </div>
+    );
+  }
+
+  // Helpers
+  updatePeopleList() {
+    this.props.fetchPeople();
   }
 }
 
 PeopleListPage.propTypes = {
-  people: PropTypes.object.isRequired
+  people: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state, ownProps) {
-  return {people: state.people};
+  return {
+    people: state.people,
+  };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
